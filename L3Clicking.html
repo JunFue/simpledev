@@ -16,38 +16,49 @@
         
        
 
-        function Button({ count, setCount}) {
+        function Button({ count, setCount }) {
             
+            const intervalRef  = React.useRef(null);
             
-            function add (){
-                setCount(c => c + 1)
 
-
-               
+            // simple increment
+            function add() {
+                setCount(c => c + 1);
+                
             }
 
+            // Reset count and stop any running auto-click
+            function zero() {
+                setCount(0);
+                if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+                }
+            }
+
+            // Start auto-click ONLY if one isn’t already running
+            function autoClick() {
+                if (intervalRef.current) return;              // guard against double-start
+                intervalRef.current = setInterval(() => {
+                    console.log(intervalRef.current);
+                add();
+                }, 1000);
+                
+            }
 
             return (
                 <>
-                    <button
-                        onClick = {add}
-                    >Clicked {count} time{count > 1 && 's'}
-                    </button>
+                <button onClick={add}>
+                    Clicked {count} time{count > 1 && "s"}
+                </button>
+                <button onClick={zero}>Reset</button>
+                <button onClick={autoClick}>AutoClick: ON</button>
                 </>
-            )  
-        }
-
-        function Reset({count, setCount}){
-            function zero(){
-                setCount(0)
+            );
             }
-            return (
-                <button
-                    onClick={zero}
-                >Reset</button>
-            )
-        }
 
+
+            
         function App(){
             const [count, setCount] = React.useState(0);
             return (
@@ -56,14 +67,7 @@
                         count = {count}
                         setCount = {setCount}
                     />
-                    <Button 
-                        count = {count}
-                        setCount = {setCount}
-                    />
-                    <Reset 
-                        count = {count}
-                        setCount = {setCount}
-                    />
+
                 </>
             )
         }
