@@ -1,0 +1,12 @@
+*{
+  font-family: Verdana, sans-serif;
+}
+.form-field{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+
+}
