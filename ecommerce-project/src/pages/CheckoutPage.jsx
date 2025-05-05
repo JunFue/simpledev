@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from "dayjs";
+import { dayjs } from "dayjs";
 import "./CheckoutPage.css";
 import "./checkout-header.css";
 import { formatMoney } from "../utils/money";
