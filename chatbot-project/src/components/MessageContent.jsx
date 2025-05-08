@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Message } from './MessageTemp';
-import './MessageContent.css';
+import { Message } from "./MessageTemp";
+import "./MessageContent.css";
 
-
-export function Messages({ content }){
+export function Messages({ content }) {
   const chatMessagesRef = useRef(null);
 
   useEffect(() => {
@@ -11,28 +10,21 @@ export function Messages({ content }){
     if (containerElem) {
       containerElem.scrollTop = containerElem.scrollHeight;
     }
-  }), [content];
+  }),
+    [content];
 
-  return(
-    <div 
-      className="chat-messages-container"
-      ref={chatMessagesRef}
-    >
-      
-      {content.map((details)=>{
-        return(
-          
-            <Message
-              message={details.message}
-              timeStamp={details.timeStamp}
-              sender={details.sender}
-              key={details.id}
-            />
-          
-        )
+  return (
+    <div className="chat-messages-container" ref={chatMessagesRef}>
+      {content.map((details) => {
+        return (
+          <Message
+            message={details.message}
+            timeStamp={details.timeStamp}
+            sender={details.sender}
+            key={details.id}
+          />
+        );
       })}
-    
     </div>
-  )
-
+  );
 }
